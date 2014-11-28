@@ -94,9 +94,10 @@ module MetaTags
     # @param [Array<Tag>] tags a buffer object to store tag in.
     #
     def render_alternate(tags)
-      if alternate = meta_tags.extract(:alternate)
-        alternate.each do |hreflang, href|
-          tags << Tag.new(:link, :rel => 'alternate', :href => href, :hreflang => hreflang) if href.present?
+      if alternates = meta_tags.extract(:alternate)
+        alternates.each do |alternate|
+          alternate[:rel] = 'alternate'
+          tags << Tag.new(:link, alternate)
         end
       end
     end
